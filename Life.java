@@ -129,6 +129,70 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         // start without the wrap around, add the wrap feature after testing the rules in
         // a bounded world.
         
+        //if cell is dead
+        int count = 0;
+        for(int r=0; r<newboard.length; r++)
+        {
+            for (int c=0; c<newboard[0].length; c++)
+            {
+                //if cell is dead
+                if(newboard[r][c]==false)
+                {
+                    //check left
+                    if(newboard[r][c-1]==true)
+                    {
+                        count++;
+                    }
+                    //check right
+                    if(newboard[r][c+1]==true)
+                    {
+                        count++;
+                    }
+                    //check up
+                    if(newboard[r-1][c]==true)
+                    {
+                        count++;
+                    }
+                    //check down
+                    if(newboard[r+1][c]==true)
+                    {
+                        count++;
+                    }
+                    //check diagonal top right
+                    if(newboard[r-1][c+1]==true)
+                    {
+                        count++;
+                    }
+                    //check diagonal top left
+                    if(newboard[r-1][c-1]==true)
+                    {
+                        count++;
+                    }
+                    //check diagonal bottom right
+                    if(newboard[r+1][c+1]==true)
+                    {
+                        count++;
+                    }
+                    //check diagonal bottom left
+                    if(newboard[r+1][c-1]==true)
+                    {
+                        count++;
+                    }
+                    
+                    if (count==3)
+                    {
+                        newboard[r][c]=true;
+                    }
+                }
+                
+                //if cell is alive
+                if(newboard[r][c]==false)
+                {
+                }
+            }
+        }
+        
+        
         alive = newboard;
     }
 
