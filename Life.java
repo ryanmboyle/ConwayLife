@@ -62,7 +62,7 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         f.setVisible(true);
     }
 
-    private final int GRID_SIZE = 100;  // Number of squares along each side of the board
+    private final int GRID_SIZE = 20;  // Number of squares along each side of the board
                                         // (Should probably not be less than 10 or more than 200,)
 
     private boolean[][] alive;   // Represents the board.  alive[r][c] is true if the cell in row r, column c is alive.
@@ -128,75 +128,179 @@ public class Life extends JPanel implements ActionListener, MouseListener, Mouse
         // implement the game rules -- see top comment
         // start without the wrap around, add the wrap feature after testing the rules in
         // a bounded world.
-        
-        //if cell is dead
-        int count = 0;
-        for(int r=0; r<newboard.length; r++)
+        for(int r=0; r<alive.length; r++)
         {
-            for (int c=0; c<newboard[0].length; c++)
+            for (int c=0; c<alive[0].length; c++)
+            {
+                newboard[r][c]=false;
+            }
+        }
+        
+        
+
+        int count = 0;
+        for(int r=0; r<alive.length; r++)
+        {
+            for (int c=0; c<alive[0].length; c++)
             {
                 //if cell is dead
-                if(newboard[r][c]==false)
+                if(alive[r][c]==false)
                 {
                     //check left
-                    if(newboard[r][c-1]==true)
+                    if(c>0)
                     {
-                        count++;
+                        if(alive[r][c-1]==true)
+                        {
+                            count++;
+                        }
                     }
                     //check right
-                    if(newboard[r][c+1]==true)
+                    if(c<alive[0].length-1)
                     {
-                        count++;
+                        if(alive[r][c+1]==true)
+                        {
+                            count++;
+                        }
                     }
                     //check up
-                    if(newboard[r-1][c]==true)
+                    if(r>0)
                     {
-                        count++;
+                        if(alive[r-1][c]==true)
+                        {
+                            count++;
+                        }
                     }
                     //check down
-                    if(newboard[r+1][c]==true)
+                    if (r<alive.length-1)
                     {
-                        count++;
+                        if(alive[r+1][c]==true)
+                        {   
+                            count++;
+                        }   
                     }
                     //check diagonal top right
-                    if(newboard[r-1][c+1]==true)
+                    if(c<alive[0].length-1 && r>0)
                     {
-                        count++;
+                        if(alive[r-1][c+1]==true)
+                        {
+                            count++;
+                        }
                     }
                     //check diagonal top left
-                    if(newboard[r-1][c-1]==true)
+                    if(c>0 && r>0)
                     {
-                        count++;
+                        if(alive[r-1][c-1]==true)
+                        {
+                            count++;
+                        }
                     }
                     //check diagonal bottom right
-                    if(newboard[r+1][c+1]==true)
+                    if(c<alive[0].length-1 && r<alive.length-1)
                     {
-                        count++;
-                    }
+                        if(alive[r+1][c+1]==true)
+                        {
+                            count++;
+                        }
+                    } 
                     //check diagonal bottom left
-                    if(newboard[r+1][c-1]==true)
+                    if(c>0 && r<alive.length-1)
                     {
-                        count++;
+                        if(alive[r+1][c-1]==true)
+                        {
+                            count++;
+                        }
                     }
+                    
                     
                     if (count==3)
                     {
                         newboard[r][c]=true;
                     }
+                    
                 }
-                
-                //if cell is alive
-                if(newboard[r][c]==false)
+               
+                else if(alive[r][c]==true)
                 {
+                    //check left
+                    if(c>0)
+                    {
+                        if(alive[r][c-1]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    //check right
+                    if(c<alive[0].length-1)
+                    {
+                        if(alive[r][c+1]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    //check up
+                    if(r>0)
+                    {
+                        if(alive[r-1][c]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    //check down
+                    if (r<alive.length-1)
+                    {
+                        if(alive[r+1][c]==true)
+                        {   
+                            count++;
+                        }   
+                    }
+                    //check diagonal top right
+                    if(c<alive[0].length-1 && r>0)
+                    {
+                        if(alive[r-1][c+1]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    //check diagonal top left
+                    if(c>0 && r>0)
+                    {
+                        if(alive[r-1][c-1]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    //check diagonal bottom right
+                    if(c<alive[0].length-1 && r<alive.length-1)
+                    {
+                        if(alive[r+1][c+1]==true)
+                        {
+                            count++;
+                        }
+                    } 
+                    //check diagonal bottom left
+                    if(c>0 && r<alive.length-1)
+                    {
+                        if(alive[r+1][c-1]==true)
+                        {
+                            count++;
+                        }
+                    }
+                    
+                    //System.out.println(count);
+                    if (count==2 || count==3)
+                    {
+                        newboard[r][c]=true;
+                    }
+                    
                 }
+                count=0;
             }
         }
-        
-        
+
         alive = newboard;
     }
 
-
+    
     /**
      *  Sets the color of every square in the display to show whether the corresponding
      *  cell on the Life board is alive or dead. 
